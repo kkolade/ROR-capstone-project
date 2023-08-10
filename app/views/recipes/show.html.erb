@@ -7,19 +7,37 @@
         <p><strong>Cooking Time:</strong> <%= @recipe.cooking_time %> minutes</p>
         <p class="descRecipeD"><%= @recipe.description%><p>
       </div>
-      <div class="recipeInfoR">
+      <%
+=begin%>
+ <div class="recipeInfoR d-flex">
         <p><strong>Public:</strong></p>
-        <div class="toggle-button">
+        <div class="toggle-button mx-2">
           <% if current_user == @recipe.user %>
-            <%= button_to toggle_public_recipe_path(@recipe), method: :patch, class: "btnToggle" do %>
+            <%= button_to toggle_public_recipe_path(@recipe), method: :patch, class: "btnToggle btn btn-outline-primary btn-sm mb-2" do %>
               <%= @recipe.is_public ? 'Yes' : 'No' %>
             <% end %>
           <% end %>
         </div>
+      </div> 
+<%
+=end%>
+
+
+      <div class="form-check form-switch mx-2">
+        <% if current_user == @recipe.user %>
+          <%= form_with url: toggle_public_recipe_path(@recipe), method: :patch do %>
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" 
+            <%= 'checked' if @recipe.is_public %> >
+            <label class="form-check-label" for="flexSwitchCheckDefault">Public</label>
+          <% end %>
+        <% end %>
       </div>
+
+
+
     </div>
   </div>
-  <div class="buttonsRecipe">
+  <div class="buttonsRecipe d-flex gap-2 mb-3">
     <% if current_user == @recipe.user %>
       <div class="add-food-form">
         <%= link_to "Add New Food", new_recipe_food_path(@recipe), class: "btn btn-primary" %>
@@ -27,12 +45,12 @@
     <% end %>
     <% if @recipe.is_public || current_user == @recipe.user %>
       <div class="generate-list-button">
-      <%= link_to "Generate shopping list", modal_recipe_path, data: { turbo_frame: 'modal' } %>
+      <%= link_to "Generate shopping list", modal_recipe_path, data: { turbo_frame: 'modal' }, class: "btnToggle btn btn-outline-primary" %>
       </div>
     <% end %>
   </div>
 
-  <table class="tableRecipe">
+  <table class="tableRecipe table table-hover table-striped">
     <thead>
       <tr>
         <th>Food</th>
@@ -47,9 +65,9 @@
           <td><%= recipe_food.food.name %></td>
           <td><%= "#{recipe_food.quantity} #{recipe_food.food.measurement_unit}" %></td>
           <td><%= (recipe_food.quantity * recipe_food.food.price).to_i %> $</td>
-          <td class="buttonsTable">
-            <%= link_to 'Edit', edit_recipe_recipe_food_path(@recipe, recipe_food), class: 'btn btn-primary' %>
-            <%= button_to 'Delete', recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <td class="buttonsTable d-flex gap-2">
+            <%= link_to 'Edit', edit_recipe_recipe_food_path(@recipe, recipe_food), class: 'btn btn-primary btn-sm' %>
+            <%= button_to 'Delete', recipe_recipe_food_path(@recipe, recipe_food), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-outline-primary btn-sm' %>
           </td>
         </tr>
       <% end %>
