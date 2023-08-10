@@ -7,11 +7,11 @@
       </div>
     </div>
     <hr>
-    <ul>
+    <ul class="p-0">
       <% @recipes.includes(:user).each do |recipe| %>
-        <li class="recipeCont list-unstyled">
-          <div class="recipeLeft">
-            <%= link_to recipe.name, recipe_path(recipe), class: 'recipeTitle btn btn-outline-primary btn-sm mx-2' %>
+        <li class="recipeCont list-unstyled card p-3 d-flex flex-row">
+          <div class="recipeLeft mb-2 w-25">
+            <%= link_to recipe.name, recipe_path(recipe), class: 'recipeTitle btn btn-primary btn-sm my-3' %>
             <% if recipe.user == current_user %>
             <%= link_to 'remove', recipe_path(recipe), data: { turbo_method: :delete, confirm: 'Are you sure you want to remove this recipe?' }, class: 'removeBtn btn btn-outline-primary btn-sm' %>
             <% end %>
