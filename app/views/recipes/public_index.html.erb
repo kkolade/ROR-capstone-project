@@ -1,18 +1,18 @@
-<h1>Public Recipes</h1>
+<h1 class="my-2">Public Recipes</h1>
 
 <% @recipes.each do |recipe| %>
-  <div class="public-recipe-box card pt-2">
-    <div class="d-flex">
+  <div class="public-recipe-box card my-2">
+    <div class="d-flex p-3">
       <div class=" w-25 h3 text-center d-block">
-        <%= link_to recipe.name , recipe_path(recipe), class: 'text-decoration-none d-block' %>
+        <%= link_to recipe.name , recipe_path(recipe), class: 'text-decoration-none d-block pt-3 text-start' %>
       </div>
       <div>
         <p>Total food items: 5</p>
         <p>Total price: $250</p>
       </div>
     </div>
-    <div class="h3 mx-5">
-      <p>By: <%= recipe.user.name %></p>
+    <div class="h4 mx-5">
+      <p class="my-0">By: <%= recipe.user.name %></p>
     </div>
   </div>
 <% end %>
