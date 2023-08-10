@@ -7,11 +7,11 @@
         <p><strong>Cooking Time:</strong> <%= @recipe.cooking_time %> minutes</p>
         <p class="descRecipeD"><%= @recipe.description%><p>
       </div>
-      <div class="recipeInfoR">
+      <div class="recipeInfoR d-flex">
         <p><strong>Public:</strong></p>
-        <div class="toggle-button">
+        <div class="toggle-button mx-2">
           <% if current_user == @recipe.user %>
-            <%= button_to toggle_public_recipe_path(@recipe), method: :patch, class: "btnToggle" do %>
+            <%= button_to toggle_public_recipe_path(@recipe), method: :patch, class: "btnToggle btn btn-outline-primary btn-sm mb-2" do %>
               <%= @recipe.is_public ? 'Yes' : 'No' %>
             <% end %>
           <% end %>
@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <div class="buttonsRecipe">
+  <div class="buttonsRecipe d-flex gap-2">
     <% if current_user == @recipe.user %>
       <div class="add-food-form">
         <%= link_to "Add New Food", new_recipe_food_path(@recipe), class: "btn btn-primary" %>
@@ -27,7 +27,7 @@
     <% end %>
     <% if @recipe.is_public || current_user == @recipe.user %>
       <div class="generate-list-button">
-      <%= link_to "Generate shopping list", modal_recipe_path, data: { turbo_frame: 'modal' } %>
+      <%= link_to "Generate shopping list", modal_recipe_path, data: { turbo_frame: 'modal' }, class: "btnToggle btn btn-outline-primary" %>
       </div>
     <% end %>
   </div>
