@@ -1,6 +1,8 @@
 <div class="d-flex gap-3" id="<%= dom_id inventory %>">
   <span class="h2 mb-2 d-inline-block w-25">
-    <%= inventory.name %>
+    <%= link_to inventory, class: "inventory-link" do %>
+      <%= inventory.name %>
+    <% end %>
   </span>
   <p>
     <%= inventory.description %>
