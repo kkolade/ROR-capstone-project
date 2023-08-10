@@ -9,7 +9,7 @@
     <hr>
     <ul class="p-0">
       <% @recipes.includes(:user).each do |recipe| %>
-        <li class="recipeCont list-unstyled card p-3 d-flex flex-row">
+        <li class="recipeCont list-unstyled card p-3 d-flex flex-row mb-3">
           <div class="recipeLeft mb-2 w-25">
             <%= link_to recipe.name, recipe_path(recipe), class: 'recipeTitle btn btn-primary btn-sm my-3' %>
             <% if recipe.user == current_user %>
