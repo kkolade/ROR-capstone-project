@@ -1,10 +1,10 @@
-<div class="d-flex gap-3" id="<%= dom_id inventory %>">
-  <span class="h2 mb-2 d-inline-block w-25">
-    <%= link_to inventory, class: "inventory-link" do %>
+<div class="row" id="<%= dom_id inventory %>">
+  <div class="col-3 h3 text-center">
+    <%= link_to inventory, class: "text-decoration-none d-block pt-3 text-start" do %>
       <%= inventory.name %>
     <% end %>
-  </span>
-  <p>
-    <%= inventory.description %>
-  </p>  
+  </div>
+  <div class="col-9 mb-2">
+    <p><strong>Description:</strong> <%= inventory.description %> </p>
+  </div>  
 </div>

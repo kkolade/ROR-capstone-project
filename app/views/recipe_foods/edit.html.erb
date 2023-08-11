@@ -1,16 +1,24 @@
-<h1>Edit Food</h1>
+<div class="container d-flex justify-content-center">
+  <div class="form-container  mb-3 col-6 justify-content-center">
+    <h1>Edit Food</h1>
 
-<%= form_with(model: [@recipe, @recipe_food], url: recipe_recipe_food_path(@recipe, @recipe_food), method: :patch) do |form| %>
-  <div class="field">
-    <%= form.label :quantity %>
-    <%= form.text_field :quantity %>
+    <%= form_with(model: [@recipe, @recipe_food], url: recipe_recipe_food_path(@recipe, @recipe_food), method: :patch) do |form| %>
+      <div class="field">
+        <%= form.label :quantity, class: "form-label" %>
+        <%= form.text_field :quantity, class: "form-control" %>
+      </div>
+      
+      <!-- Other form fields -->
+
+      <div class="actions d-flex justify-content-end mt-4">
+        <%= form.submit 'Update Recipe Food', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= link_to recipe_path(@recipe), class: "btn btn-outline-primary" do %>
+        &larr; Back to Recipe Food
+      <% end %>
+    </div>
   </div>
-  
-  <!-- Other form fields -->
-
-  <div class="actions">
-    <%= form.submit 'Update Recipe Food', class: 'btn btn-primary' %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', recipe_path(@recipe), class: 'btn btn-secondary' %>
+</div>
