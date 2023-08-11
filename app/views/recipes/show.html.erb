@@ -25,12 +25,16 @@
   <div class="buttonsRecipe d-flex gap-2 mb-3">
     <% if current_user == @recipe.user %>
       <div class="add-food-form">
-        <%= link_to "Add New Food", new_recipe_food_path(@recipe), class: "btn btn-primary" %>
+        <%= link_to "Add ingredient", new_recipe_food_path(@recipe), class: "btn btn-primary" %>
       </div>
     <% end %>
     <% if @recipe.is_public || current_user == @recipe.user %>
       <div class="generate-list-button">
+<<<<<<< .merge_file_BT81Pp
       <%= link_to "Generate shopping list", modal_recipe_path, data: { turbo_frame: 'modal' }, class: "btnToggle btn btn-outline-primary" %>
+=======
+        <%= link_to "Generate shopping list", modal_recipe_path(@recipe), data: { turbo_frame: 'modal' } %>
+>>>>>>> .merge_file_pAu4ZP
       </div>
     <% end %>
   </div>

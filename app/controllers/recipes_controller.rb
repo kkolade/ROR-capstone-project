@@ -7,10 +7,11 @@ class RecipesController < ApplicationController
 
   def public_index
     @recipes = Recipe.includes(:user).where(is_public: true)
+    @recipe_totals = calculate_recipe_totals(@recipes)
   end
 
   def show
-    @recipe_foods = @recipe.recipe_foods
+    @recipe_foods = @recipe.recipe_foods.includes(:food)
   end
 
   def toggle_public
@@ -19,6 +20,7 @@ class RecipesController < ApplicationController
   end
 
   def destroy
+    @recipe.recipe_foods.destroy_all
     @recipe.destroy
     redirect_to recipes_path, notice: 'Recipe was successfully deleted.'
   rescue ActiveRecord::RecordNotFound
@@ -49,10 +51,40 @@ class RecipesController < ApplicationController
   private
 
   def set_recipe
-    @recipe = Recipe.includes(:user, :recipe_foods).find(params[:id])
+    @recipe = Recipe.includes(:user).find(params[:id])
   end
 
   def recipe_params
     params.require(:recipe).permit(:name, :description, :is_public, :preparation_time, :cooking_time)
+  end
+
+  def destroy_related_records
+    recipe_foods = @recipe.recipe_foods
+
+    recipe_foods.each do |recipe_food|
+      shopping_list = ShoppingList.find_by(recipe_food:)
+      shopping_list&.destroy
+    end
+
+    recipe_foods.destroy_all
+  end
+
+  def calculate_recipe_totals(recipes)
+    recipe_totals = []
+
+    recipes.each do |recipe|
+      total_foods = 0
+      total_price = 0
+
+      recipe.recipe_foods.includes(:food).each do |recipe_food|
+        food = recipe_food.food
+        total_foods += 1
+        total_price += (recipe_food.quantity * food.price)
+      end
+
+      recipe_totals << { recipe:, total_foods:, total_price: }
+    end
+
+    recipe_totals
   end
 end

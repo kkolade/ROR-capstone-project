@@ -4,12 +4,12 @@ class InventoriesController < ApplicationController
 
   # GET /inventories
   def index
-    @inventories = current_user.inventories.includes(:user)
+    @inventories = current_user.inventories
   end
 
   # GET /inventories/1
   def show
-    set_inventory
+    @inventory = current_user.inventories.find(params[:id])
   end
 
   # GET /inventories/new
@@ -30,14 +30,15 @@ class InventoriesController < ApplicationController
 
   # DELETE /inventories/1
   def destroy
-    set_inventory
+    @inventory = Inventory.find(params[:id])
 
-    if @inventory.user == current_user
-      @inventory.destroy
-      redirect_to inventories_url, notice: 'Inventory was successfully destroyed.'
-    else
-      redirect_to @inventory, alert: 'You are not authorized to delete this inventory.'
-    end
+    # Delete associated inventory foods
+    @inventory.inventory_foods.destroy_all
+
+    # Delete the inventory
+    @inventory.destroy
+
+    redirect_to inventories_url, notice: 'Inventory was successfully destroyed.'
   end
 
   private

@@ -1,5 +1,6 @@
 <h1 class="my-2">Public Recipes</h1>
 
+<<<<<<< .merge_file_sxbu8l
 <% @recipes.each do |recipe| %>
   <div class="public-recipe-box card my-2">
     <div class="row p-3">
@@ -13,6 +14,17 @@
     </div>
     <div class="h4 mx-5">
       <p class="my-0">By: <%= recipe.user.name %></p>
+=======
+<% @recipe_totals.each do |recipe_total| %>
+  <div class="public-recipe-box">
+    <div>
+      <%= link_to recipe_total[:recipe].name, recipe_path(recipe_total[:recipe]), class: 'recipe-title' %>
+      <p>By: <%= recipe_total[:recipe].user.name %></p>
+    </div>
+    <div>
+      <p>Total food items: <%= recipe_total[:total_foods] %></p>
+      <p>Total price: $<%= recipe_total[:total_price] %></p>
+>>>>>>> .merge_file_CxjjgY
     </div>
   </div>
 <% end %>
